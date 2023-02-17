@@ -1,11 +1,22 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import { Poppins } from "@next/font/google";
+import { MdNavigateNext } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { IoClose } from "react-icons/io5";
+import { useState } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 export default function Home() {
+  const [toogle, setToogle] = useState(false);
+
+  const handleToogle = () => {
+    setToogle(!toogle);
+  };
+
   return (
     <>
       <Head>
@@ -14,110 +25,45 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
+      <main className={`${poppins.className}`}>
+        <nav className="relative mx-auto flex w-11/12 max-w-[1280px] items-center justify-between py-4">
+          <div className="flex flex-row items-center space-x-8">
+            <span className="text-lg font-bold uppercase">Localhost</span>
+            <div className="hidden lg:flex">
+              <ul className="flex space-x-8">
+                <li>Products</li>
+                <li>Integrations</li>
+                <li>Recipes</li>
+                <li>Resource</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center">
+            <button className="lg:hidden" onClick={handleToogle}>
+              <span className="sr-only">Toggle menu</span>
+              <BsThreeDotsVertical className="h-6 w-6" />
+            </button>
+            <ul
+              className={`absolute flex flex-col items-end justify-end gap-x-9 space-y-4 rounded-lg bg-white p-4 shadow-lg transition-all duration-300 md:w-4/12 lg:static lg:mt-0 lg:w-auto lg:flex-row lg:items-center lg:space-y-0 lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none ${
+                toogle ? "right-0 top-2" : "-right-full top-2"
+              }`}
             >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+              <button className="lg:hidden" onClick={handleToogle}>
+                <span className="sr-only">Toggle Close</span>
+                <IoClose className="h-6 w-6" />
+              </button>
+              <li>Login</li>
+              <button className="flex items-center rounded-md bg-blue-600 px-4 py-2 text-white">
+                Try it free
+                <span>
+                  <MdNavigateNext className="h-6 w-6" />
+                </span>
+              </button>
+            </ul>
           </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+        </nav>
       </main>
     </>
-  )
+  );
 }
